@@ -2,7 +2,6 @@ package com.farsitel.bazaar.updater
 
 import android.content.ComponentName
 import android.content.ServiceConnection
-import android.os.DeadObjectException
 import android.os.IBinder
 import com.farsitel.bazaar.IAutoUpdateCheckService
 import kotlinx.coroutines.CoroutineScope
@@ -42,7 +41,7 @@ internal class AutoUpdateServiceConnection(
         }
     }
 
-    override fun onServiceDisconnected(d: ComponentName?) {
-        onError(DeadObjectException())
+    override fun onServiceDisconnected(componentName: ComponentName?) {
+        onError(ServiceDisconnectionException(componentName))
     }
 }
